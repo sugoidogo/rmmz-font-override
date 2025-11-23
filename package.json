@@ -1,0 +1,19 @@
+{
+  "name": "rmmz-sugoisubtitles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/node": "^24.10.1",
+    "@types/web": "^0.0.294",
+    "nwjs-types": "^1.0.0",
+    "rpgmaker-mz-types": "^1.0.0"
+  }
+}

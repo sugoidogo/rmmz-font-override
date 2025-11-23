@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "noEmit": true,
+        "target": "es2020",
+        "module": "es2020",
+        "types": [
+            "@types/web",
+            "@types/node",
+            "nwjs-types",
+            "rpgmaker-mz-types"
+        ]
+    }
+}
