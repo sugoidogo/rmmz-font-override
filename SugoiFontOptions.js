@@ -20,7 +20,7 @@
     const fonts = [disabled]
     let font = fonts[0]
 
-    if (require) {
+    if (globalThis.require) {
         const fs = require('fs')
         fs.mkdirSync(alt_fonts,{recursive:true})
         const fontFileNames = fs.readdirSync(alt_fonts)
