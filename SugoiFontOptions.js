@@ -135,3 +135,95 @@
         }
     }
 }
+{
+    const option_name = 'Font Settings'
+    const font_size_symbol = 'font_size'
+    let font_size = Game_System.prototype.mainFontSize.call();
+    const font_size_max = font_size * 2;
+
+    const addGeneralOptions = Window_Options.prototype.addGeneralOptions
+    Window_Options.prototype.addGeneralOptions = function () {
+        addGeneralOptions.call(this);
+        this.addCommand(option_name, font_size_symbol, true)
+    }
+
+    const statusText = Window_Options.prototype.statusText
+    Window_Options.prototype.statusText = function (/** @type {number} */ index) {
+        const symbol = this.commandSymbol(index)
+        if (symbol === font_size_symbol) {
+            return font_size
+        }
+        return statusText.call(this, index)
+    }
+
+    function cycleFontSize(forward = true) {
+        if (forward) font_size = (font_size + 1) % font_size_max
+        else font_size = (font_size - 1) % font_size_max
+        return font_size
+    }
+
+    const processOk = Window_Options.prototype.processOk
+    Window_Options.prototype.processOk = function () {
+        const index = this.index();
+        const symbol = this.commandSymbol(index);
+        if (symbol === font_size_symbol) {
+            // @ts-ignore changeValue should have `value: any`
+            this.changeValue(font_size_symbol, cycleFontSize())
+        } else {
+            return processOk.call(this)
+        }
+    }
+
+    const cursorRight = Window_Options.prototype.cursorRight
+    Window_Options.prototype.cursorRight = function (/** @type {boolean} */ wrap) {
+        const index = this.index();
+        const symbol = this.commandSymbol(index);
+        if (symbol === font_size_symbol) {
+            // @ts-ignore changeValue should have `value: any`
+            this.changeValue(font_size_symbol, cycleFontSize())
+        } else {
+            return cursorRight.call(this, wrap)
+        }
+    }
+
+    const cursorLeft = Window_Options.prototype.cursorLeft
+    Window_Options.prototype.cursorLeft = function (/** @type {boolean} */ wrap) {
+        const index = this.index();
+        const symbol = this.commandSymbol(index);
+        if (symbol === font_size_symbol) {
+            // @ts-ignore changeValue should have `value: any`
+            this.changeValue(font_size_symbol, cycleFontSize(false))
+        } else {
+            return cursorLeft.call(this, wrap)
+        }
+    }
+
+    Object.defineProperty(ConfigManager, font_size_symbol, {
+        get: function () {
+            return font_size
+        },
+        set: function (value) {
+            font_size = value
+        },
+        configurable: true
+    })
+
+    const makeData = ConfigManager.makeData
+    ConfigManager.makeData = function () {
+        const config = makeData.call(this)
+        config[font_size_symbol] = font_size
+        return config
+    }
+
+    const applyData = ConfigManager.applyData
+    ConfigManager.applyData = function (config) {
+        applyData.call(this, config)
+        if (font_size_symbol in config && typeof config[font_size_symbol] === 'number') {
+            font_size = config[font_size_symbol]
+        }
+    }
+
+    Game_System.prototype.mainFontSize = function () {
+        return font_size
+    }
+}
