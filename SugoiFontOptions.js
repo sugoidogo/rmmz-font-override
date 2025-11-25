@@ -136,7 +136,7 @@
     }
 }
 {
-    const option_name = 'Font Settings'
+    const option_name = 'Font Size'
     const font_size_symbol = 'font_size'
     let font_size = Game_System.prototype.mainFontSize.call();
     const font_size_max = font_size * 2;
