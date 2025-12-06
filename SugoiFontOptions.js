@@ -31,6 +31,7 @@
         .then(response => response.json())
         .then(/** @type {string[]} */ fontFileNames => {
             for (const fontFileName of fontFileNames) {
+                if(fontFileName===fonts_index) continue
                 const fontName = fontFileName.split('.')[0]
                 const fontURL = encodeURI(alt_fonts + fontFileName)
                 // @ts-ignore FontManager is not documented
