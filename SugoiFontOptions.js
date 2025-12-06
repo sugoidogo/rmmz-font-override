@@ -180,7 +180,6 @@
         const index = this.index();
         const symbol = this.commandSymbol(index);
         if (symbol === font_size_symbol) {
-            // @ts-ignore changeValue should have `value: any`
             this.changeValue(font_size_symbol, cycleFontSize())
         } else {
             return cursorRight.call(this, wrap)
@@ -192,7 +191,6 @@
         const index = this.index();
         const symbol = this.commandSymbol(index);
         if (symbol === font_size_symbol) {
-            // @ts-ignore changeValue should have `value: any`
             this.changeValue(font_size_symbol, cycleFontSize(false))
         } else {
             return cursorLeft.call(this, wrap)
