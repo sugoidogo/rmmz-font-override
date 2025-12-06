@@ -139,8 +139,8 @@
 {
     const option_name = 'Font Size'
     const font_size_symbol = 'font_size'
-    let font_size = Game_System.prototype.mainFontSize.call();
-    const font_size_max = font_size * 2;
+    let font_size = -1
+    let font_size_max = -1
 
     const addGeneralOptions = Window_Options.prototype.addGeneralOptions
     Window_Options.prototype.addGeneralOptions = function () {
@@ -222,7 +222,12 @@
         }
     }
 
+    const mainFontSize = Game_System.prototype.mainFontSize
     Game_System.prototype.mainFontSize = function () {
+        if (font_size === -1) {
+            font_size = mainFontSize.call()
+            font_size_max = font_size * 2
+        }
         return font_size
     }
 }
